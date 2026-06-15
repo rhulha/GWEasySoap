@@ -122,11 +122,13 @@ class GWEasySoap:
     def login_with_any_user(self, endpoint: str, tapp_name: str, tapp_key: str) -> bool:
         """Try the trusted-app login against post office users until one succeeds."""
         last_fault = None
-        for tried, info in enumerate(self.get_user_list(endpoint, tapp_name, tapp_key)):
+        attempts = 0
+        for info in self.get_user_list(endpoint, tapp_name, tapp_key):
             if info.recip_type != RecipientType.USER or not info.userid:
                 continue
-            if tried >= 10:
+            if attempts >= 10:
                 break
+            attempts += 1
             try:
                 if self.login_trusted_app(endpoint, info.userid, tapp_name, tapp_key):
                     return True
