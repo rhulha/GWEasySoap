@@ -1,0 +1,28 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "gweasysoap"
+version = "0.1.0"
+description = "A helper library for the GroupWise SOAP API (gwsoap)."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+keywords = ["groupwise", "soap", "gwsoap", "novell", "micro focus"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Topic :: Communications :: Email",
+]
+dependencies = ["gwsoap>=1.0.3"]
+
+[project.urls]
+Homepage = "https://github.com/rhulha/GWEasySoap"
+Documentation = "https://github.com/rhulha/GWEasySoap#readme"
+Repository = "https://github.com/rhulha/GWEasySoap"
+"Bug Reports" = "https://github.com/rhulha/GWEasySoap/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["gweasysoap"]
