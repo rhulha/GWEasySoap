@@ -1,11 +1,11 @@
 """10 - Send a plain-text mail to the connected user (a safe self-send)."""
 
 from gweasysoap import GWEasySoap
-from config import GW_SOAP_URL, GW_USER, GW_TRUSTED_APP_NAME, GW_TRUSTED_APP_KEY
+from config import GW_SOAP_URL, GW_USER, GW_TRUSTED_APP_NAME, GW_TRUSTED_APP_KEY, VERIFY_SSL
 
 
 with GWEasySoap.connect_trusted_app(
-    GW_SOAP_URL, GW_USER, GW_TRUSTED_APP_NAME, GW_TRUSTED_APP_KEY
+    GW_SOAP_URL, GW_USER, GW_TRUSTED_APP_NAME, GW_TRUSTED_APP_KEY, verify_ssl=VERIFY_SSL
 ) as gw:
     recipient = {"display_name": gw.user_name, "email": gw.user_email}
     ids = gw.send_mail(

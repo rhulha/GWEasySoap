@@ -3,11 +3,11 @@
 from datetime import datetime, timedelta
 
 from gweasysoap import GWEasySoap
-from config import GW_SOAP_URL, GW_USER, GW_TRUSTED_APP_NAME, GW_TRUSTED_APP_KEY
+from config import GW_SOAP_URL, GW_USER, GW_TRUSTED_APP_NAME, GW_TRUSTED_APP_KEY, VERIFY_SSL
 
 
 with GWEasySoap.connect_trusted_app(
-    GW_SOAP_URL, GW_USER, GW_TRUSTED_APP_NAME, GW_TRUSTED_APP_KEY
+    GW_SOAP_URL, GW_USER, GW_TRUSTED_APP_NAME, GW_TRUSTED_APP_KEY, verify_ssl=VERIFY_SSL
 ) as gw:
     start = datetime.now().replace(minute=0, second=0, microsecond=0) + timedelta(days=1)
     end = start + timedelta(hours=1)

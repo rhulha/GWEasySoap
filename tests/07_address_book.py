@@ -1,10 +1,10 @@
 """7 - Read the system address book and list its entries."""
 
 from gweasysoap import GWEasySoap
-from config import GW_SOAP_URL, GW_USER, GW_PASSWORD
+from config import GW_SOAP_URL, GW_USER, GW_PASSWORD, VERIFY_SSL
 
 
-with GWEasySoap.connect(GW_SOAP_URL, GW_USER, GW_PASSWORD) as gw:
+with GWEasySoap.connect(GW_SOAP_URL, GW_USER, GW_PASSWORD, verify_ssl=VERIFY_SSL) as gw:
     book = gw.get_system_address_book()
     if book is None:
         raise SystemExit("System address book not found")

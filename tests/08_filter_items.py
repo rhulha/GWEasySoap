@@ -1,14 +1,14 @@
 """8 - Use a server-side filter: find items whose subject begins with "P"."""
 
 from gweasysoap import GWEasySoap
-from config import GW_SOAP_URL, GW_USER, GW_TRUSTED_APP_NAME, GW_TRUSTED_APP_KEY
+from config import GW_SOAP_URL, GW_USER, GW_TRUSTED_APP_NAME, GW_TRUSTED_APP_KEY, VERIFY_SSL
 from gwsoap.types.Filter import Filter
 from gwsoap.types.FilterEntry import FilterEntry
 from gwsoap.types.FilterOp import FilterOp
 
 
 with GWEasySoap.connect_trusted_app(
-    GW_SOAP_URL, GW_USER, GW_TRUSTED_APP_NAME, GW_TRUSTED_APP_KEY
+    GW_SOAP_URL, GW_USER, GW_TRUSTED_APP_NAME, GW_TRUSTED_APP_KEY, verify_ssl=VERIFY_SSL
 ) as gw:
     f = Filter(element=FilterEntry(op=FilterOp.BEGINS, field="subject", value="P"))
     items = gw.get_items(None, filter=f, count=10)
