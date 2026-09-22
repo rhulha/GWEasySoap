@@ -19,6 +19,7 @@ from gwsoap.methods.SendItemRequest import SendItemRequest
 from gwsoap.methods.CreateItemRequest import CreateItemRequest
 from gwsoap.methods.ModifyItemRequest import ModifyItemRequest
 from gwsoap.methods.GetFolderListRequest import GetFolderListRequest
+from gwsoap.methods.GetProxyListRequest import GetProxyListRequest
 
 from gwsoap.types.AddressBookItem import AddressBookItem
 from gwsoap.types.Appointment import Appointment
@@ -217,6 +218,16 @@ class GWEasySoap:
             for u in self.get_user_list(endpoint, tapp_name, tapp_key)
             if u.recip_type == RecipientType.USER and u.userid
         ]
+
+    # -- proxies -----------------------------------------------------------
+
+    def get_proxy_list(self) -> list:
+        """Return the :class:`ProxyUser` accounts the logged-in user may proxy into."""
+        response = self.client.get_proxy_list(GetProxyListRequest(), self._ctx)
+        self._raise_on_bad_status(response, "get_proxy_list")
+        if not response.proxies or not response.proxies.proxy:
+            return []
+        return response.proxies.proxy
 
     # -- address book ------------------------------------------------------
 

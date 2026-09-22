@@ -58,6 +58,7 @@ Constructor options: `application` (the name reported to GroupWise),
 ### What you can do
 
 - **Users / mailboxes** – `get_user_list`, `get_user_mailboxes`
+- **Proxies** – `get_proxy_list`
 - **Address book** – `get_system_address_book`, `get_address_book_entries`
 - **Folders** – `get_mailbox`, `get_trash_folder`, `get_calendar`,
   `get_system_folder`, `get_folder_list`, `get_shared_folder_by_name`

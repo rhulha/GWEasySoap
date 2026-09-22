@@ -4,10 +4,10 @@ build-backend = "hatchling.build"
 
 [project]
 name = "gweasysoap"
-version = "0.1.1"
+version = "0.1.2"
 description = "A helper library for the GroupWise SOAP API (gwsoap)."
 readme = "README.md"
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 license = { text = "MIT" }
 keywords = ["groupwise", "soap", "gwsoap", "novell", "micro focus"]
 classifiers = [
