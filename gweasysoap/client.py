@@ -21,6 +21,7 @@ from gwsoap.methods.ModifyItemRequest import ModifyItemRequest
 from gwsoap.methods.GetFolderListRequest import GetFolderListRequest
 from gwsoap.methods.GetProxyListRequest import GetProxyListRequest
 from gwsoap.methods.CreateProxyAccessRequest import CreateProxyAccessRequest
+from gwsoap.methods.GetProxyAccessListRequest import GetProxyAccessListRequest
 
 from gwsoap.types.AccessRight import AccessRight
 from gwsoap.types.AccessRightEntry import AccessRightEntry
@@ -231,6 +232,14 @@ class GWEasySoap:
         if not response.proxies or not response.proxies.proxy:
             return []
         return response.proxies.proxy
+
+    def get_proxy_access_list(self) -> list:
+        """Return the :class:`AccessRightEntry` list of who may proxy into the logged-in mailbox."""
+        response = self.client.get_proxy_access_list(GetProxyAccessListRequest(), self._ctx)
+        self._raise_on_bad_status(response, "get_proxy_access_list")
+        if not response.access_rights or not response.access_rights.entry:
+            return []
+        return response.access_rights.entry
 
     def create_proxy_access(self, email: str, read: bool = True, write: bool = False) -> str:
         """Grant ``email`` proxy access to the logged-in mailbox; returns the new entry id."""
