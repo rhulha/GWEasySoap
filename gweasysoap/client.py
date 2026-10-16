@@ -20,7 +20,10 @@ from gwsoap.methods.CreateItemRequest import CreateItemRequest
 from gwsoap.methods.ModifyItemRequest import ModifyItemRequest
 from gwsoap.methods.GetFolderListRequest import GetFolderListRequest
 from gwsoap.methods.GetProxyListRequest import GetProxyListRequest
+from gwsoap.methods.CreateProxyAccessRequest import CreateProxyAccessRequest
 
+from gwsoap.types.AccessRight import AccessRight
+from gwsoap.types.AccessRightEntry import AccessRightEntry
 from gwsoap.types.AddressBookItem import AddressBookItem
 from gwsoap.types.Appointment import Appointment
 from gwsoap.types.CategoryRefList import CategoryRefList
@@ -228,6 +231,14 @@ class GWEasySoap:
         if not response.proxies or not response.proxies.proxy:
             return []
         return response.proxies.proxy
+
+    def create_proxy_access(self, email: str, read: bool = True, write: bool = False) -> str:
+        """Grant ``email`` proxy access to the logged-in mailbox; returns the new entry id."""
+        right = AccessRight(read=read, write=write)
+        entry = AccessRightEntry(email=email, mail=right, appointment=right, note=right, task=right)
+        response = self.client.create_proxy_access(CreateProxyAccessRequest(entry=entry), self._ctx)
+        self._raise_on_bad_status(response, "create_proxy_access")
+        return response.id
 
     # -- address book ------------------------------------------------------
 
