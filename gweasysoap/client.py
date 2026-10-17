@@ -241,10 +241,16 @@ class GWEasySoap:
             return []
         return response.access_rights.entry
 
-    def create_proxy_access(self, email: str, read: bool = True, write: bool = False) -> str:
-        """Grant ``email`` proxy access to the logged-in mailbox; returns the new entry id."""
+    def create_proxy_access(self, email: str, read: bool = True, write: bool = False,
+                            display_name: Optional[str] = None, uuid: Optional[str] = None) -> str:
+        """Grant ``email`` proxy access to the logged-in mailbox; returns the new entry id.
+
+        GroupWise ignores entries it cannot link to a user, so pass ``uuid`` and
+        ``display_name`` of the grantee when known.
+        """
         right = AccessRight(read=read, write=write)
-        entry = AccessRightEntry(email=email, mail=right, appointment=right, note=right, task=right)
+        entry = AccessRightEntry(display_name=display_name, email=email, uuid=uuid,
+                                 mail=right, appointment=right, note=right, task=right)
         response = self.client.create_proxy_access(CreateProxyAccessRequest(entry=entry), self._ctx)
         self._raise_on_bad_status(response, "create_proxy_access")
         return response.id
